@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 
@@ -24,9 +25,11 @@ public class Booking {
     private User user;
 
     @Column(name = "check_in")
-    private String checkIn;
+    private LocalDate checkIn;
+
     @Column(name = "check_out")
-    private String checkOut;
+    private LocalDate checkOut;
+
     @Column(name = "active")
     private Boolean active;
     @ManyToOne
