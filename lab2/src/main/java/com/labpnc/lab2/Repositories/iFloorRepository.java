@@ -2,6 +2,7 @@
 package com.labpnc.lab2.Repositories;
 
 import com.labpnc.lab2.Domain.Entities.Booking;
+import com.labpnc.lab2.Domain.Entities.Floor;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

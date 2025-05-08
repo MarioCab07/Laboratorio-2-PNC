@@ -1,17 +1,7 @@
 package com.labpnc.lab2.Domain.Entities;
 
 
-/*
-*
-* Id
-	idUsuario
-	idSucursal
-	Departamento
-	idSuperior
-	isManager
-	idRotacion
 
-* */
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID idUser;
+    private UUID idBooking;
 
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)

@@ -1,8 +1,10 @@
 
 package com.labpnc.lab2.Repositories;
 
+import com.labpnc.lab2.Domain.Entities.Agregate;
 import com.labpnc.lab2.Domain.Entities.Booking;
 import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,9 +18,21 @@ public interface iAgregateRepository extends iGenericRepository<Agregate, UUID> 
 
   Agregate findByName(String name);
 
-    @Query("SELECT a.* FROM Agregate a WHERE a.description LIKE %:text%")
-    List<Agregate> searchByDescription(@Param("text") String text);
+  @Query("SELECT r.agregate FROM Room r WHERE r.idRoom = :idRoom")
+  Agregate findAgregateByRoomId(@Param("idRoom") UUID idRoom);
 
-    @Query(value = "SELECT * FROM agregate ORDER BY name ASC", nativeQuery = true)
-    List<Agregate> findAllOrderedByName();
+
+  @Modifying
+  @Transactional
+  @Query(value = """
+    INSERT INTO agregate (id_agregate, name, description)
+    VALUES (:id, :name, :description)
+    """, nativeQuery = true)
+  void insertAgregate(
+          @Param("id") UUID id,
+          @Param("name") String name,
+          @Param("description") String description
+  );
+
+
 }

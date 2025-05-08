@@ -2,7 +2,9 @@
 package com.labpnc.lab2.Repositories;
 
 import com.labpnc.lab2.Domain.Entities.Booking;
+import com.labpnc.lab2.Domain.Entities.Branch;
 import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -14,11 +16,17 @@ import java.util.UUID;
 @Transactional
 public interface iBranchRepository extends iGenericRepository<Branch, UUID> {
 
-    List<Banch> findByLocation(String location);
+    List<Branch> findByLocation(String location);
 
-    @Query("SELECT b FROM Building b WHERE LOWER(b.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-    List<Branch> findByKeywordInName(@Param("keyword") String keyword);
+    @Query("SELECT b, COUNT(f) FROM Branch b LEFT JOIN b.floors f GROUP BY b")
+    List<Object[]> findFloorsByBranch();
 
-    @Query(value = "SELECT * FROM building ORDER BY location", nativeQuery = true)
-    List<Branch> getBuildingsOrderedByLocation();
+    @Modifying
+    @Query(value = """
+    INSERT INTO branch (id_branch, name, location)
+    VALUES (:id, :name, :location)
+    """, nativeQuery = true)
+    void insertBranch(@Param("id") UUID id, @Param("name") String name, @Param("location") String location);
+
 }
+

@@ -14,7 +14,7 @@ public interface iEmployeeRepository extends iGenericRepository<Employee, UUID> 
 
     List<Employee> findByDepartment(String department);
 
-    @Query("SELECT e.* FROM Employee e WHERE branch.idBranch = :branchId AND e.isManager = true")
+    @Query("SELECT e FROM Employee e WHERE branch.idBranch = :branchId AND e.isManager = true")
     List<Employee> findManagersByBranch(@Param("branchId") UUID branchId);
 
     @Query(value = """
@@ -25,9 +25,5 @@ public interface iEmployeeRepository extends iGenericRepository<Employee, UUID> 
     List<Employee> getEmployeesByDepartment(@Param("departmentName") String departmentName);
 
 
-    @Transactional
-    interface iWorkOrderRepository extends iGenericRepository<WorkOrder, String> {
 
-
-    }
 }

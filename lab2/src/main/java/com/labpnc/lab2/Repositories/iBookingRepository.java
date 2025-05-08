@@ -19,6 +19,6 @@ public interface iBookingRepository extends iGenericRepository<Booking, UUID> {
     List<Booking> findBookingsBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     @Query(nativeQuery = true , value = "SELECT * FROM booking WHERE id_room = :roomId ")
-    List<Booking> getRecentBookingsByRoom(@Param("roomId") UUID roomId);
+    List<Booking> getBookingsByRoom(@Param("roomId") UUID roomId);
 
 }

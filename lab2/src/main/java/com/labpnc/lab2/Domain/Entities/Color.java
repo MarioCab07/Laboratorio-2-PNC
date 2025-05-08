@@ -16,13 +16,14 @@ import java.util.UUID;
 public class Color {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID idColor;
+    private Integer idColor;
 
     @Column(name = "name", nullable = false)
     private String name;
 
+
     @OneToMany
-    @JoinColumn(name = "id_color", referencedColumnName = "idColor", foreignKey = @ForeignKey(name = "FK_floor_color"))
+    @JoinColumn(name = "id_color_button", referencedColumnName = "idColor", foreignKey = @ForeignKey(name = "FK_floor_color"))
     private List<Floor> floors;
+
 }
